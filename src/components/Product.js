@@ -1,15 +1,13 @@
-import React from 'react'
-import styled from 'styled-components'
-import { formatPrice } from '../utils/helpers'
-import { FaSearch } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
-
-const Product = () => {
-  return <h4>product</h4>
-}
+import React from "react";
+import styled from "styled-components";
+import { formatPrice } from "../utils/helpers";
+import { FaSearch } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Wrapper = styled.article`
   .container {
+    width: 100%;
+    padding: 0;
     position: relative;
     background: var(--clr-black);
     border-radius: var(--radius);
@@ -63,5 +61,23 @@ const Wrapper = styled.article`
     color: var(--clr-primary-5);
     letter-spacing: var(--spacing);
   }
-`
-export default Product
+`;
+
+const Product = ({ image, id, price, name }) => {
+  return (
+    <Wrapper>
+      <div className="container">
+        <img src={image} alt={name} />
+        <Link to={`/products/${id}`} className="link">
+          <FaSearch />
+        </Link>
+      </div>
+      <footer>
+        <h5>{name}</h5>
+        <p>{formatPrice(price)}</p>
+      </footer>
+    </Wrapper>
+  );
+};
+
+export default Product;
