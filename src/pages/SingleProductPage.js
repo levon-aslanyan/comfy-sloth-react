@@ -64,7 +64,6 @@ const SingleProductPage = () => {
   }, [id]);
 
   useEffect(() => {
-    console.log(error, "error");
     if (error) {
       setTimeout(() => {
         history.push("/");
@@ -72,7 +71,6 @@ const SingleProductPage = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error]);
-  console.log(error, "heto");
 
   if (loading) {
     return <Loading />;
@@ -81,9 +79,52 @@ const SingleProductPage = () => {
     return <Error />;
   }
 
-  // console.log(product, "=====");
+  const {
+    name,
+    description,
+    price,
+    stars,
+    company,
+    reviews,
+    stock,
+    id: sku,
+    images,
+  } = product;
 
-  return <Wrapper>single product page</Wrapper>;
+  // console.log(product, "=====");
+  return (
+    <Wrapper>
+      <PageHero title={name} product />
+      <div className="section section-center page">
+        <Link to="/products" className="btn">
+          back to products
+        </Link>
+        <div className="product-center">
+          <ProductImages images={images} />
+          <section className="content">
+            <h2>{name}</h2>
+            <Stars stars={stars} reviews={reviews} />
+            <h5 className="price">{formatPrice(price)}</h5>
+            <p className="desc">{description}</p>
+            <p className="info">
+              <span>Available :</span>
+              {stock > 0 ? "In stock" : "out of stock"}
+            </p>
+            <p className="info">
+              <span>Sku :</span>
+              {sku}
+            </p>
+            <p className="info">
+              <span>brand :</span>
+              {company}
+            </p>
+            <hr />
+            {stock > 0 && <AddToCart product={product} />}
+          </section>
+        </div>
+      </div>
+    </Wrapper>
+  );
 };
 
 export default SingleProductPage;
