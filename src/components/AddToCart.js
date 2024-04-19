@@ -1,13 +1,9 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import { Link } from 'react-router-dom'
-import { FaCheck } from 'react-icons/fa'
-import { useCartContext } from '../context/cart_context'
-import AmountButtons from './AmountButtons'
-
-const AddToCart = () => {
-  return <h4>addToCart </h4>
-}
+import React, { useState } from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { FaCheck } from "react-icons/fa";
+import { useCartContext } from "../context/cart_context";
+import AmountButtons from "./AmountButtons";
 
 const Wrapper = styled.section`
   margin-top: 2rem;
@@ -46,6 +42,7 @@ const Wrapper = styled.section`
     opacity: 1;
   }
   .btn-container {
+    flex-wrap: wrap;
     margin-top: 2rem;
   }
 
@@ -53,5 +50,69 @@ const Wrapper = styled.section`
     margin-top: 1rem;
     width: 140px;
   }
-`
-export default AddToCart
+`;
+
+const AddToCart = ({ product }) => {
+  const { id, colors, stock } = product;
+
+  console.log(colors, "Colors");
+  const [mainColors, setMainColors] = useState(colors[0]);
+  const [amount, setAmount] = useState(1);
+
+  const increase = () => {
+    setAmount((oldAmount) => {
+      let tempAmount = oldAmount + 1;
+      if (tempAmount > stock) {
+        tempAmount = stock;
+      }
+      return tempAmount;
+    });
+  };
+
+  const decrease = () => {
+    setAmount((newAmount) => {
+      let minusAmount = newAmount - 1;
+      if (minusAmount < 1) {
+        minusAmount = 1;
+      }
+      return minusAmount;
+    });
+  };
+
+  return (
+    <Wrapper>
+      <div className="colors">
+        <span>colors: </span>
+
+        <div>
+          {colors.map((color, index) => {
+            return (
+              <button
+                key={index}
+                style={{ background: color }}
+                className={`${
+                  mainColors === color ? "color-btn active" : "color-btn"
+                }`}
+                onClick={() => setMainColors(color)}
+              >
+                {mainColors === color ? <FaCheck /> : null}
+              </button>
+            );
+          })}
+        </div>
+        <div className="btn-container">
+          <AmountButtons
+            amount={amount}
+            increase={increase}
+            decrease={decrease}
+          />
+          <Link to="/cart" className="btn">
+            add to cart
+          </Link>
+        </div>
+      </div>
+    </Wrapper>
+  );
+};
+
+export default AddToCart;
