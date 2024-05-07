@@ -53,9 +53,9 @@ const Wrapper = styled.section`
 `;
 
 const AddToCart = ({ product }) => {
+  const { addToCart } = useCartContext();
   const { id, colors, stock } = product;
 
-  console.log(colors, "Colors");
   const [mainColors, setMainColors] = useState(colors[0]);
   const [amount, setAmount] = useState(1);
 
@@ -106,7 +106,11 @@ const AddToCart = ({ product }) => {
             increase={increase}
             decrease={decrease}
           />
-          <Link to="/cart" className="btn">
+          <Link
+            to="/cart"
+            className="btn"
+            onClick={() => addToCart( id, mainColors, amount, product )}
+          >
             add to cart
           </Link>
         </div>
