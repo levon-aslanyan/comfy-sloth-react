@@ -1,4 +1,4 @@
-import { act } from "react-dom/test-utils";
+// import { act } from "react-dom/test-utils";
 import {
   SIDEBAR_OPEN,
   SIDEBAR_CLOSE,
@@ -9,7 +9,7 @@ import {
   GET_SINGLE_PRODUCT_SUCCESS,
   GET_SINGLE_PRODUCT_ERROR,
 } from "../actions";
-import { single_product_url } from "../utils/constants";
+// import { single_product_url } from "../utils/constants";
 
 const products_reducer = (state, action) => {
   if (action.type === SIDEBAR_OPEN) {

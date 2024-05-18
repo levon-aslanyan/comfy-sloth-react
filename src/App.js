@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Navbar, Sidebar, Footer } from "./components";
 import {
   Home,
@@ -19,8 +19,24 @@ function App() {
       <Router>
         <Navbar />
         <Sidebar />
-        <Switch>
-          <Route exact path="/">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="cart" element={<Cart />} />
+          <Route path="products" element={<Products />} />
+          <Route path="products/:id" element={<SingleProduct />} />
+          <Route
+            path="checkout"
+            element={
+              <PrivateRoute>
+                <Checkout />
+              </PrivateRoute>
+            }
+          />
+          <Route path="*" element={<Error />} />
+          {/*  */}
+
+          {/* <Route exact path="/">
             <Home />
           </Route>
 
@@ -44,8 +60,8 @@ function App() {
 
           <Route path="*">
             <Error />
-          </Route>
-        </Switch>
+          </Route> */}
+        </Routes>
         <Footer />
       </Router>
     </AuthWrapper>
